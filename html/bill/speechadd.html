@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript" src="../../js/angular.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var app = angular.module('myApp', []);
+			app.controller('myCtrl', function($scope,$filter) {
+				$scope.list = [];
+				$scope.bill={};
+				var date = new Date();
+				$scope.bill.bdate=date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+
+				
+				$scope.startRecognize = function() {
+
+					if(plus.os.name == 'Android' && navigator.userAgent.indexOf('StreamApp') > 0) {
+						plus.nativeUI.toast('当前环境暂不支持语音识别插件');
+						return;
+					}
+					var options = {};
+					options.engine = 'iFly';
+					//options.punctuation = false;	// 是否需要标点符号 
+					$scope.list.push("开始语音识别");
+					plus.speech.startRecognize(options, function(s) {
+						
+						$scope.list.push(s);
+						//$scope.$apply();
+					}, function(e) {
+						$scope.list.push("语音识别失败");
+					});
+				}
+				$scope.addBill = function() {
+					if($scope.bill.date!=null)
+					$scope.bill.date=$scope.Date
+					console.log($scope.bill);
+					console.log($filter('date')(date.getTime(),'yyyyMMddHHmmss'));
+					plus.storage.setItem( $filter('date')(date.getTime(),'yyyyMMddHHmmss'), JSON.stringify($scope.bill) );
+				}
+			});
+		</script>
+	</head>
+
+	<body>
+
+		<div class="mui-content" ng-app="myApp" ng-controller="myCtrl">
+			<div class="mui-content-padded">
+				<p>通过语音识别录入数据
+				</p>
+				<p>
+					<button ng-click="startRecognize()" class="mui-icon mui-icon-mic mui-btn mui-btn-primary mui-btn-block mui-btn-outlined " style="padding: 5px 20px;">录入数据</button>
+				</p>
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label>说明</label>
+						<input type="text" ng-model="bill.des" class="mui-input-speech mui-input-clear" placeholder="事物说明">
+					</div>
+					<div class="mui-input-row">
+						<label>金额</label>
+						<input type="number" ng-model="bill.money" class="mui-input-clear" placeholder="金额">
+					</div>
+
+					<div class="mui-input-row ">
+						<label>日期</label>
+						<input type="date" ng-model="bill.bdate" class="mui-input-clear" value="{{bill.bdate | date:'yyyy-MM-dd'}}" >
+					</div>
+
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-primary" ng-click="addBill()">确认</button>&nbsp;&nbsp;
+						<button type="reset" class="mui-btn mui-btn-danger">取消</button>
+					</div>
+				</form>
+				<p>说明：</p>
+				<ul class="hm-description">
+					<li ng-repeat="item in list">{{item}}</li>
+
+				</ul>
+				<p id="info"></p>
+			</div>
+		</div>
+
+	</body>
+
+</html>
