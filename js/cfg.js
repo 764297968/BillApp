@@ -1,0 +1,3 @@
+var cfg = {
+		keyname: "bill"
+};

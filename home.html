@@ -40,3 +40,16 @@
 	</body>
 </html>
 <script src="js/mui.min.js"></script>
+<script>
+		var _toast = false;
+	mui.back = function() {
+				if(!_toast || !_toast.isVisible()) {
+					_toast = mui.toast('再按一次返回键退出<br>点此可&nbsp;<span style="border-bottom:1px solid #fff" onclick="openFeedback();">反馈意见</span>', {
+						duration: 'long',
+						type: 'div'
+					});
+				} else {
+					plus.runtime.quit();
+				}
+			}
+</script>

@@ -9,16 +9,17 @@
 		<script type="text/javascript" src="../../js/common.js"></script>
 		<script type="text/javascript" src="../../js/angular.min.js"></script>
 		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
 		<script type="text/javascript">
 			mui.init();
 			var app = angular.module('myApp', []);
-			app.controller('myCtrl', function($scope,$filter) {
+			app.controller('myCtrl', function($scope, $filter) {
 				$scope.list = [];
-				$scope.bill={};
+				$scope.bill = {};
 				var date = new Date();
-				$scope.bill.bdate=date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-
-				
+				$scope.bill.bdate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+console.log(1);
+				$("#date").val($scope.bill.bdate);
 				$scope.startRecognize = function() {
 
 					if(plus.os.name == 'Android' && navigator.userAgent.indexOf('StreamApp') > 0) {
@@ -30,19 +31,36 @@
 					//options.punctuation = false;	// 是否需要标点符号 
 					$scope.list.push("开始语音识别");
 					plus.speech.startRecognize(options, function(s) {
-						
+
 						$scope.list.push(s);
-						//$scope.$apply();
+						$scope.$apply();
 					}, function(e) {
 						$scope.list.push("语音识别失败");
 					});
 				}
 				$scope.addBill = function() {
-					if($scope.bill.date!=null)
-					$scope.bill.date=$scope.Date
+					var bill = $scope.bill;
+					if(bill.des == null) {
+						mui.toast('说明不能为空', { duration: 'short', type: 'div' })
+						return;
+					}
+
+					if(bill.money <= 0 || bill.money == null) {
+						mui.toast('金额不正确', { duration: 'short', type: 'div' })
+						return;
+					}
+					//plus.storage.setItem("11","test")
 					console.log($scope.bill);
-					console.log($filter('date')(date.getTime(),'yyyyMMddHHmmss'));
-					plus.storage.setItem( $filter('date')(date.getTime(),'yyyyMMddHHmmss'), JSON.stringify($scope.bill) );
+					bill.state=1;
+					plus.storage.setItem(cfg.keyname + date.getTime(), JSON.stringify($scope.bill));
+					mui.alert("录入成功", "提示", "确定", function() {
+							mui.openWindow({
+								url: "/index.html",
+								id: "index.html"
+							});
+					},
+						"div");
+
 				}
 			});
 		</script>
@@ -69,7 +87,8 @@
 
 					<div class="mui-input-row ">
 						<label>日期</label>
-						<input type="date" ng-model="bill.bdate" class="mui-input-clear" value="{{bill.bdate | date:'yyyy-MM-dd'}}" >
+						<input type="date" id="date" ng-model="bill.bdate" class="mui-input-clear">
+						<!--value="{{bill.bdate}}"-->
 					</div>
 
 					<div class="mui-button-row">
@@ -82,7 +101,7 @@
 					<li ng-repeat="item in list">{{item}}</li>
 
 				</ul>
-				<p id="info"></p>
+
 			</div>
 		</div>
 
