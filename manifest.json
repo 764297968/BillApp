@@ -202,7 +202,10 @@
 					"js/common.js",
 					"js/cfg.js",
 					"html/log/log.html",
-					"html/bill/speechadd.html"
+					"html/bill/speechadd.html",
+					"html/bill/billlist.html",
+					"/html/bill/billindex.html",
+					"html/bill/billindex.html"
 				],
 				"refer": [
 					"html/guide.html"
@@ -217,7 +220,8 @@
 					"js/angular.min.js",
 					"css/common.css",
 					"fonts/mui.ttf",
-					"index.html"
+					"index.html",
+					"js/cfg.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -230,7 +234,8 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"js/angular.min.js",
-					"index.html"
+					"index.html",
+					"js/cfg.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -240,6 +245,29 @@
 					"js/mui.min.js",
 					"fonts/mui.ttf",
 					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/bill/billlist.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/cfg.js",
+					"js/angular.min.js",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/bill/billindex.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/cfg.js",
+					"js/angular.min.js",
+					"html/bill/billlist.html",
+					"index.html"
 				],
 				"refer": [],
 				"priority": 0

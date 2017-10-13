@@ -10,6 +10,7 @@
 		<script type="text/javascript" src="../../js/angular.min.js"></script>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/cfg.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			var app = angular.module('myApp', []);
@@ -18,7 +19,7 @@
 				$scope.bill = {};
 				var date = new Date();
 				$scope.bill.bdate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-console.log(1);
+
 				$("#date").val($scope.bill.bdate);
 				$scope.startRecognize = function() {
 
@@ -52,6 +53,7 @@ console.log(1);
 					//plus.storage.setItem("11","test")
 					console.log($scope.bill);
 					bill.state=1;
+					db.addbill(bill.money,bill.des,bill.bdate);
 					plus.storage.setItem(cfg.keyname + date.getTime(), JSON.stringify($scope.bill));
 					mui.alert("录入成功", "提示", "确定", function() {
 							mui.openWindow({

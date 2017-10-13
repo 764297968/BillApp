@@ -5,8 +5,9 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
-		<script src="js/mui.min.js"></script>
+
 		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/angular.min.js"></script>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/cfg.js"></script>
@@ -24,10 +25,7 @@
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-chat">
-				<span class="mui-icon mui-icon-chat"></span>
-				<span class="mui-tab-label">记录</span>
-			</a>
+
 			<a class="mui-tab-item" href="#tabbar-with-contact">
 				<span class="mui-icon mui-icon-contact"></span>
 				<span class="mui-tab-label">我的</span>
@@ -35,147 +33,33 @@
 		</nav>
 		<div class="mui-content">
 			<div id="tabbar" class="mui-control-content mui-active">
-				<div class="mui-content">
-					<!--下拉刷新容器-->
-					<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-						<div class="mui-scroll">
-							<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
-								<li class="mui-table-view-cell" ng-repeat="item in list">
-									<div class="mui-slider-right mui-disabled">
-										<a class="mui-btn mui-btn-blue mui-icon mui-icon-compose"></a>
-										<a class="mui-btn mui-btn-red mui-icon mui-icon-trash mui-right"></a>
-									</div>
-									<div class="mui-table mui-slider-handle">
-										<div class="mui-table-cell mui-col-xs-8">
-											<p class="mui-h6 mui-ellipsis">金额: {{item.val.money}}</p>
-											<p class="mui-h6 mui-ellipsis">人物: {{item.val.people==null?"暂无":item.val.people}}</p>
-											<p class="mui-h6 mui-ellipsis">描述: {{item.val.des}}</p>
-										</div>
-										<div class="mui-table-cell mui-col-xs-3 mui-text-right">
-											<span class="mui-h5">{{item.val.bdate}}</span>
-										</div>
-									</div>
-								</li>
 
-								<li class="mui-table-view-cell">
-									<div class="mui-slider-right mui-disabled">
-										<a class="mui-btn mui-btn-blue mui-icon mui-icon-compose"></a>
-										<a class="mui-btn mui-btn-red mui-icon mui-icon-trash mui-right"></a>
-									</div>
-									<div class="mui-table mui-slider-handle">
-										<div class="mui-table-cell mui-col-xs-10">
-											<h4 class="mui-ellipsis">ddsdsd</h4>
-											<h5>申请人：李四</h5>
-											<p class="mui-h6 mui-ellipsis">Hi，李明明，申请交行信息卡，100元等你拿，李明明，申请交行信息卡，100元等你拿，</p>
-										</div>
-										<div class="mui-table-cell mui-col-xs-4 mui-text-right">
-											<span class="mui-h5">2017-10-20</span>
-										</div>
-									</div>
-								</li>
-							</ul>
+				<!--下拉刷新容器-->
+				<ul id="refreshContainer" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+					<li class="mui-table-view-cell" ng-repeat="item in list">
+						<div class="mui-slider-right mui-disabled">
+							<a class="mui-btn mui-btn-blue mui-icon mui-icon-compose"></a>
+							<a class="mui-btn mui-btn-red mui-icon mui-icon-trash mui-right"></a>
 						</div>
-
-					</div>
-				</div>
-
-			</div>
-
-			<div id="tabbar-with-chat" class="mui-control-content">
-
-				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
-					<li class="mui-table-view-cell">
-						<div class="mui-slider-cell">
-							<div class="oa-contact-cell mui-table">
-								<div class="oa-contact-avatar mui-table-cell">
-									<img src="../images/60x60.gif" />
-								</div>
-								<div class="oa-contact-content mui-table-cell">
-									<div class="mui-clearfix">
-										<h4 class="oa-contact-name">叶文洁</h4>
-										<span class="oa-contact-position mui-h6">董事长</span>
-									</div>
-									<p class="oa-contact-email mui-h6">
-										yewenjie@sina.com
-									</p>
-								</div>
+						<div class="mui-table mui-slider-handle">
+							<div class="mui-table-cell mui-col-xs-8">
+								<p class="mui-h6 mui-ellipsis">金额: {{item.val.money}}</p>
+								<p class="mui-h6 mui-ellipsis">人物: {{item.val.people==null?"暂无":item.val.people}}</p>
+								<p class="mui-h6 mui-ellipsis">描述: {{item.val.des}}</p>
+							</div>
+							<div class="mui-table-cell mui-col-xs-3 mui-text-right">
+								<span class="mui-h5">{{item.val.bdate}}</span>
 							</div>
 						</div>
 					</li>
-					<li class="mui-table-view-cell">
-						<div class="mui-slider-cell">
-							<div class="oa-contact-cell mui-table">
-								<div class="oa-contact-avatar mui-table-cell">
-									<img src="../images/60x60.gif" />
-								</div>
-								<div class="oa-contact-content mui-table-cell">
-									<div class="mui-clearfix">
-										<h4 class="oa-contact-name">艾AA</h4>
-										<span class="oa-contact-position mui-h6">总经理</span>
-									</div>
-									<p class="oa-contact-email mui-h6">
-										aaa@163.com
-									</p>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="mui-table-view-cell">
-						<div class="mui-slider-cell">
-							<div class="oa-contact-cell mui-table">
-								<div class="oa-contact-avatar mui-table-cell">
-									<img src="../images/60x60.gif" />
-								</div>
-								<div class="oa-contact-content mui-table-cell">
-									<div class="mui-clearfix">
-										<h4 class="oa-contact-name">罗辑</h4>
-										<span class="oa-contact-position mui-h6">员工</span>
-									</div>
-									<p class="oa-contact-email mui-h6">
-										luoji@126.com
-									</p>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="mui-table-view-cell">
-						<div class="mui-slider-cell">
-							<div class="oa-contact-cell mui-table">
-								<div class="oa-contact-avatar mui-table-cell">
-									<img src="../images/60x60.gif" />
-								</div>
-								<div class="oa-contact-content mui-table-cell">
-									<div class="mui-clearfix">
-										<h4 class="oa-contact-name">云天明</h4>
-										<span class="oa-contact-position mui-h6">员工</span>
-									</div>
-									<p class="oa-contact-email mui-h6">
-										ytm@163.com
-									</p>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="mui-table-view-cell">
-						<div class="mui-slider-cell">
-							<div class="oa-contact-cell mui-table">
-								<div class="oa-contact-avatar mui-table-cell">
-									<img src="../images/60x60.gif" />
-								</div>
-								<div class="oa-contact-content mui-table-cell">
-									<div class="mui-clearfix">
-										<h4 class="oa-contact-name">史强</h4>
-										<span class="oa-contact-position mui-h6">员工</span>
-									</div>
-									<p class="oa-contact-email mui-h6">
-										shiqiang@gmail.com
-									</p>
-								</div>
-							</div>
-						</div>
-					</li>
+<div class="mui-text-center">
+	<a href="html/bill/billindex.html"> 查看更多</a>
+</div>
+				 
 				</ul>
+
 			</div>
+
 			<div id="tabbar-with-contact" class="mui-control-content">
 
 				<ul class="mui-table-view">
@@ -216,19 +100,20 @@
 </html>
 <script>
 	//启用双击监听
-//		mui.init({
-//			gestureConfig:{
-//				doubletap:true
-//			},
-//			subpages:[{
-//				url:'pullrefresh_sub.html',
-//				id:'pullrefresh_sub.html',
-//				styles:{
-//					top: '45px',
-//					bottom: '0px',
-//				}
-//			}]
-//		});
+	//		mui.init({
+	//			gestureConfig:{
+	//				doubletap:true
+	//			},
+	//			subpages:[{
+	//				url:'html/bill/billlist.html',
+	//				id:'billlist.html',
+	//				styles:{
+	//					top: '45px',
+	//					bottom: '0px',
+	//				}
+	//			}]
+	//		});
+
 	mui.plusReady(function() {
 		//读取本地存储，检查是否为首次启动
 		var showGuide = plus.storage.getItem("lauchFlag");
@@ -243,19 +128,19 @@
 			//preload();
 		} else {
 			//显示启动导航
-			mui.openWindow({
-				id: 'guide',
-				url: 'html/guide.html',
-				styles: {
-					popGesture: "none"
-				},
-				show: {
-					aniShow: 'none'
-				},
-				waiting: {
-					autoShow: false
-				}
-			});
+			//			mui.openWindow({
+			//				id: 'guide',
+			//				url: 'html/guide.html',
+			//				styles: {
+			//					popGesture: "none"
+			//				},
+			//				show: {
+			//					aniShow: 'none'
+			//				},
+			//				waiting: {
+			//					autoShow: false
+			//				}
+			//			});
 
 		}
 
@@ -275,104 +160,10 @@
 
 	});
 
-	//主列表点击事件
-	//				mui('#header').on('tap', 'a', function() {
-	//				
-	//					//mui('#app').on('tap', 'a', function() {
-	//					var id = this.getAttribute("data-wid");
-	//					console.log(id);
-	//					if(!id) {
-	//						id = this.getAttribute('href');
-	//					}
-	//					var href = this.getAttribute('href');
-	//					var titleType = this.getAttribute("data-title-type");
-	//	
-	//					var webview_style = {
-	//						popGesture: "close"
-	//					}
-	//					var extras = {};
-	//					if(titleType == "native") {
-	//						if(!~id.indexOf('pullrefresh.html')) {
-	//							webview_style.bounce = "vertical";
-	//						}
-	//						//图标页面需要启动硬件加速
-	//						if(~id.indexOf('icons.html') || ~id.indexOf("echarts.html") || ~id.indexOf("tableviews-with-swipe")) {
-	//							webview_style.hardwareAccelerated = true;
-	//						}
-	//	
-	//						var webview = plus.webview.create(href, id, webview_style);
-	//						var view = new plus.nativeObj.View("title", {
-	//							top: 0,
-	//							height: "44px",
-	//							width: "100%",
-	//							dock: "top",
-	//							position: "dock"
-	//						});
-	//	
-	//						view.drawRect("#f7f7f7"); //绘制背景色
-	//						view.drawRect("#cccccc", {
-	//							top: "43px",
-	//							left: "0px"
-	//						}); //绘制底部边线
-	//	
-	//						var bitmap = new plus.nativeObj.Bitmap("back");
-	//						bitmap.loadBase64Data("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAb1BMVEUAAAAAev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8AAACubimgAAAAI3RSTlMAGfUTGfQTGPMSGPIYGhgaGBsXGxcbFxwXHBccFhwWHRYdHWufDPQAAAABYktHRACIBR1IAAAAB3RJTUUH4QETEBwooeTlkQAAAJVJREFUSMft1EkSgkAQRNFGUXFWHBDBibr/HTUwD5B/48Ig1y+io7u6MqUhf5hsNEY+j5hMgZ/FJ8Xc9ovos3T96utjbfqN/Nb0O/m96Uv5g+mP8ifTn+Ur01/ka9Nf5RvTt/I309/lH6Z/yr9Mn+Q71/MT8B34K/E58Enzv8R/K98HvnF8p3lr8F7izce7lbf3kJ/lDQp9HdBhgg3PAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE3LTAxLTE5VDE2OjI4OjQwKzA4OjAwpTDFwQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0wMS0xOVQxNjoyODo0MCswODowMNRtfX0AAAAASUVORK5CYII=");
-	//						view.drawBitmap(bitmap, {}, {
-	//							top: "10px",
-	//							left: "10px",
-	//							width: "24px",
-	//							height: "24px"
-	//						});
-	//						view.drawText(this.innerText.trim(), {}, {
-	//							size: "17px",
-	//							weight: "normal"
-	//						});
-	//	
-	//						view.setTouchEventRect({
-	//							top: "0px",
-	//							left: "0px",
-	//							width: "44px",
-	//							height: "100%"
-	//						});
-	//						view.interceptTouchEvent(true);
-	//						view.addEventListener("click", function(e) {
-	//							webview.evalJS("mui.back();");
-	//						}, false);
-	//						webview.append(view);
-	//	
-	//						if(~id.indexOf('im-chat.html')) {
-	//							extras.acceleration = "none";
-	//						}
-	//						webview.addEventListener("titleUpdate", function() {
-	//							setTimeout(function() {
-	//								webview.show(aniShow, 300, null, extras);
-	//							}, 100);
-	//						});
-	//					} else if(href && ~href.indexOf('.html')) {
-	//						//侧滑菜单需动态控制一下zindex值；
-	//						if(~id.indexOf('offcanvas-')) {
-	//							webview_style.zindex = 9998;
-	//							webview_style.popGesture = ~id.indexOf('offcanvas-with-right') ? "close" : "none";
-	//						}
-	//	
-	//						var extras = {};
-	//						if(id && id == "viewgroup") { //强制启用截屏
-	//							extras.acceleration = "capture";
-	//						}
-	//	
-	//						var webview = plus.webview.create(this.href, id, webview_style, extras);
-	//						webview.addEventListener("titleUpdate", function() {
-	//							setTimeout(function() {
-	//								webview.show(aniShow, 300);
-	//							}, 100);
-	//						});
-	//					}
-	//				});
-	//			
 	var _toast = false;
 	mui.back = function() {
 		if(!_toast || !_toast.isVisible()) {
-			_toast = mui.toast('再按一次返回键退出<br>点此可&nbsp;<span style="border-bottom:1px solid #fff" onclick="openFeedback();">反馈意见</span>', {
+			_toast = mui.toast('再按一次返回键退出', {
 				duration: '1000',
 				type: 'div'
 			});
@@ -402,6 +193,7 @@
 				var key = plus.storage.key(i);
 
 				if(key.indexOf(cfg.keyname) > -1) {
+					
 					var value = plus.storage.getItem(key);
 					$scope.list.push({ key: key, val: JSON.parse(value) })
 				}
