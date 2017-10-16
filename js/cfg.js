@@ -55,7 +55,13 @@ db.showbill=function(func)
 		func(data);
 	})
 }
-db.addbill(23,"呵呵呵",d.toLocaleString())
+db.delbill=function()
+{
+	db.transaction(function(tx) {
+	tx.executeSql("delete from bill", [], null, null);
+	})
+}
+//db.addbill(23,"呵呵呵",d.toLocaleString())
 //db.transaction(function(tx) {
 //	tx.executeSql("delete from mytable");
 //});

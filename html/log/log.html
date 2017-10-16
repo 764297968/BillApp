@@ -17,7 +17,7 @@
 		var app = angular.module('myApp', []);
 		app.controller('myCtrl', function($scope, $filter) {
 			db.showbill(function(res) {
-				console.log(res);
+				console.log(JSON.stringify(res));
 			});
 			$scope.list = [];
 			$scope.dataread = function() {
@@ -26,12 +26,6 @@
 
 				for(var i = 0; i < itemLength; i++) {
 					var key = plus.storage.key(i);
-
-					//					if(key.indexOf(cfg.keyname) > -1)
-					//					{
-					//						var value = plus.storage.getItem(key);
-					//					    $scope.list.push({ key: key, val: value })
-					//					}
 					var value = plus.storage.getItem(key);
 					$scope.list.push({ key: key, val: value })
 				};
@@ -41,6 +35,17 @@
 			$scope.clearAllItem = function() {
 				plus.storage.clear();
 
+			}
+			$scope.getdata=function()
+			{
+				db.showbill(function(res){
+					$scope.sqllist=res;
+					$scope.$apply()
+				})
+			}
+			$scope.delbill=function()
+			{
+				db.delbill();
 			}
 		})
 	</script>
@@ -54,7 +59,10 @@
 		<div class="mui-content">
 			<div class="mui-content-padded">
 				<button ng-click="dataread()">查看</button>
+				
 				<button ng-click="clearAllItem()">清除</button>
+				<button ng-click="getdata()">查看数据</button>
+				<button ng-click="delbill()">清除</button>
 			</div>
 
 			<div class="mui-card">
@@ -63,6 +71,10 @@
 					<div class="mui-card-content-inner" ng-repeat="item in list">
 						<p>{{item.key}}</p>
 						{{item.val}}
+					</div>
+					<div class="mui-card-content-inner" ng-repeat="item in sqllist">
+						<p>{{item.id}}</p>
+						{{item.des}}|{{item.money}}|{{item.date}}|{{item.state}}
 					</div>
 				</div>
 			</div>
