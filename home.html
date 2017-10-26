@@ -3,13 +3,17 @@
 
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<title></title>
 		<link rel="stylesheet" href="css/mui.min.css">
+		<script src="js/cfg.js"></script>
 	</head>
 
 	<body>
 		<div class="mui-content">
-			<ul class="mui-table-view mui-grid-view mui-grid-9">
+			<ul id="list" class="mui-table-view mui-grid-view mui-grid-9">
 				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 					<a href="html/bill/speechadd.html">
 						<span class="mui-icon mui-icon-plus-filled"></span>
@@ -17,16 +21,23 @@
 					</a>
 				</li>
 				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-					<a href="#">
+					<a href="html/bill/billindex.html" open-type="common">
 						<span class="mui-icon mui-icon-list"><!--<span class="mui-badge">5</span>--></span>
 						<div class="mui-media-body">查看</div>
 					</a>
 				</li>
+
 				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-					<a href="http://www.baidu.com">
+					<a href="html/log/log.html">
 						<span class="mui-icon mui-icon-chat"></span>
 						<div class="mui-media-body">日志</div>
 					</a>
+				</li>
+				<li onclick="openDir()" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+
+					<span class="mui-icon mui-icon-file"></span>
+					<div class="mui-media-body">目录</div>
+
 				</li>
 			</ul>
 		</div>
@@ -34,6 +45,7 @@
 
 </html>
 <script src="js/mui.min.js"></script>
+
 <script>
 	var _toast = false;
 	mui.back = function() {
@@ -46,96 +58,181 @@
 			plus.runtime.quit();
 		}
 	}
-		//主列表点击事件
-			mui('#list').on('tap', 'a', function() {
-				var id = this.getAttribute("data-wid");
-				if(!id) {
-					id = this.getAttribute('href');
-				}
-				var href = this.getAttribute('href');
-				var titleType = this.getAttribute("data-title-type");
+	//主列表点击事件
+	mui('#list').on('tap', 'a', function() {
+		var id = this.getAttribute("data-wid");
+		if(!id) {
+			id = this.getAttribute('href');
+		}
+		var href = this.getAttribute('href');
+		var titleType = this.getAttribute("data-title-type");
 
-				var webview_style = {
-					popGesture: "close"
-				}
-				var extras = {};
-				if(titleType == "native") {
-					if(!~id.indexOf('pullrefresh.html')) {
-						webview_style.bounce = "vertical";
-					}
-					//图标页面需要启动硬件加速
-					if(~id.indexOf('icons.html') || ~id.indexOf("echarts.html") || ~id.indexOf("tableviews-with-swipe")) {
-						webview_style.hardwareAccelerated = true;
-					}
+		var webview_style = {
+			popGesture: "close"
+		}
+		var extras = {};
+		if(titleType == "native") {
+			if(!~id.indexOf('pullrefresh.html')) {
+				webview_style.bounce = "vertical";
+			}
+			//图标页面需要启动硬件加速
+			if(~id.indexOf('icons.html') || ~id.indexOf("echarts.html") || ~id.indexOf("tableviews-with-swipe")) {
+				webview_style.hardwareAccelerated = true;
+			}
 
-					var webview = plus.webview.create(href, id, webview_style);
-					var view = new plus.nativeObj.View("title", {
-						top: 0,
-						height: "44px",
-						width: "100%",
-						dock: "top",
-						position: "dock"
-					});
-
-					view.drawRect("#f7f7f7"); //绘制背景色
-					view.drawRect("#cccccc", {
-						top: "43px",
-						left: "0px"
-					}); //绘制底部边线
-
-					var bitmap = new plus.nativeObj.Bitmap("back");
-					bitmap.loadBase64Data("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAb1BMVEUAAAAAev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8AAACubimgAAAAI3RSTlMAGfUTGfQTGPMSGPIYGhgaGBsXGxcbFxwXHBccFhwWHRYdHWufDPQAAAABYktHRACIBR1IAAAAB3RJTUUH4QETEBwooeTlkQAAAJVJREFUSMft1EkSgkAQRNFGUXFWHBDBibr/HTUwD5B/48Ig1y+io7u6MqUhf5hsNEY+j5hMgZ/FJ8Xc9ovos3T96utjbfqN/Nb0O/m96Uv5g+mP8ifTn+Ur01/ka9Nf5RvTt/I309/lH6Z/yr9Mn+Q71/MT8B34K/E58Enzv8R/K98HvnF8p3lr8F7izce7lbf3kJ/lDQp9HdBhgg3PAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE3LTAxLTE5VDE2OjI4OjQwKzA4OjAwpTDFwQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0wMS0xOVQxNjoyODo0MCswODowMNRtfX0AAAAASUVORK5CYII=");
-					view.drawBitmap(bitmap, {}, {
-						top: "10px",
-						left: "10px",
-						width: "24px",
-						height: "24px"
-					});
-					view.drawText(this.innerText.trim(), {}, {
-						size: "17px",
-						weight: "normal"
-					});
-
-					view.setTouchEventRect({
-						top: "0px",
-						left: "0px",
-						width: "44px",
-						height: "100%"
-					});
-					view.interceptTouchEvent(true);
-					view.addEventListener("click", function(e) {
-						webview.evalJS("mui.back();");
-					}, false);
-					webview.append(view);
-					
-					if(~id.indexOf('im-chat.html')) {
-						extras.acceleration = "none";
-					}
-					webview.addEventListener("titleUpdate", function() {
-						setTimeout(function () {
-							webview.show(aniShow, 300, null, extras);
-						},100);
-					});
-				} else if(href && ~href.indexOf('.html')) {
-					//侧滑菜单需动态控制一下zindex值；
-					if(~id.indexOf('offcanvas-')) {
-						webview_style.zindex = 9998;
-						webview_style.popGesture = ~id.indexOf('offcanvas-with-right') ? "close" : "none";
-					}
-					
-					var extras = {};
-					if(id && id == "viewgroup"){//强制启用截屏
-						extras.acceleration = "capture";
-					}
-					
-					
-					var webview = plus.webview.create(this.href,id,webview_style,extras);
-					webview.addEventListener("titleUpdate",function () {
-						setTimeout(function () {
-							webview.show(aniShow,300);
-						},100);
-					});
-				}
+			var webview = plus.webview.create(href, id, webview_style);
+			var view = new plus.nativeObj.View("title", {
+				top: 0,
+				height: "44px",
+				width: "100%",
+				dock: "top",
+				position: "dock"
 			});
-			
+
+			view.drawRect("#f7f7f7"); //绘制背景色
+			view.drawRect("#cccccc", {
+				top: "43px",
+				left: "0px"
+			}); //绘制底部边线
+
+			var bitmap = new plus.nativeObj.Bitmap("back");
+			bitmap.loadBase64Data("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAb1BMVEUAAAAAev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8AAACubimgAAAAI3RSTlMAGfUTGfQTGPMSGPIYGhgaGBsXGxcbFxwXHBccFhwWHRYdHWufDPQAAAABYktHRACIBR1IAAAAB3RJTUUH4QETEBwooeTlkQAAAJVJREFUSMft1EkSgkAQRNFGUXFWHBDBibr/HTUwD5B/48Ig1y+io7u6MqUhf5hsNEY+j5hMgZ/FJ8Xc9ovos3T96utjbfqN/Nb0O/m96Uv5g+mP8ifTn+Ur01/ka9Nf5RvTt/I309/lH6Z/yr9Mn+Q71/MT8B34K/E58Enzv8R/K98HvnF8p3lr8F7izce7lbf3kJ/lDQp9HdBhgg3PAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE3LTAxLTE5VDE2OjI4OjQwKzA4OjAwpTDFwQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0wMS0xOVQxNjoyODo0MCswODowMNRtfX0AAAAASUVORK5CYII=");
+			view.drawBitmap(bitmap, {}, {
+				top: "10px",
+				left: "10px",
+				width: "24px",
+				height: "24px"
+			});
+			view.drawText(this.innerText.trim(), {}, {
+				size: "17px",
+				weight: "normal"
+			});
+
+			view.setTouchEventRect({
+				top: "0px",
+				left: "0px",
+				width: "44px",
+				height: "100%"
+			});
+			view.interceptTouchEvent(true);
+			view.addEventListener("click", function(e) {
+				webview.evalJS("mui.back();");
+			}, false);
+			webview.append(view);
+
+			if(~id.indexOf('im-chat.html')) {
+				extras.acceleration = "none";
+			}
+			webview.addEventListener("titleUpdate", function() {
+				setTimeout(function() {
+					webview.show(300, null, extras);
+				}, 100);
+			});
+		} else if(href && ~href.indexOf('.html')) {
+			//侧滑菜单需动态控制一下zindex值；
+			if(~id.indexOf('offcanvas-')) {
+				webview_style.zindex = 9998;
+				webview_style.popGesture = ~id.indexOf('offcanvas-with-right') ? "close" : "none";
+			}
+
+			var extras = {};
+			if(id && id == "viewgroup") { //强制启用截屏
+				extras.acceleration = "capture";
+			}
+
+			var webview = plus.webview.create(this.href, id, webview_style, extras);
+			webview.addEventListener("titleUpdate", function() {
+				setTimeout(function() {
+					webview.show(300);
+				}, 100);
+			});
+		}
+	});
+
+	document.addEventListener("plusready", onPlusReady, false);
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	function onPlusReady() {
+		var d = new Date();
+		var datetime = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+
+		plus.io.resolveLocalFileSystemURL("_downloads/", function(entry) {
+			//console.log(entry.fullPath);
+			///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/downloads/
+			entry.getFile(datetime + ".txt", { create: true }, function(fileEntry) {
+				fileEntry.createWriter(function(writer) {
+					writer.onwrite = function(e) {
+						plus.console.log("Write data success!");
+					};
+					writer.seek(0);
+					db.showbill(function(res) {
+						writer.write(JSON.stringify(res));
+					})
+
+					//					writer.seek(writer.length);
+					//					writer.write("哈哈哈哈哈New data!1");
+				}, function(e) {
+					alert(e.message);
+				});
+			})
+		}, function(err) {
+			console.log(JSON.stringify(err));
+		});
+
+	}
+
+	function openDir() {
+		plus.io.resolveLocalFileSystemURL("_downloads/", function(entry) {
+			var andrpath = entry.fullPath.substr(0, entry.fullPath.indexOf('Android'))+"Download/";
+
+			plus.io.resolveLocalFileSystemURL(andrpath, function(entry1) {
+				console.log(entry1.fullPath);
+				entry1.getFile(111 + ".txt", { create: true }, function(fileEntry) {
+					fileEntry.createWriter(function(writer) {
+						writer.onwrite = function(e) {
+							plus.console.log("Write data success!");
+						};
+						 writer.seek(0);
+						writer.write("哈哈哈哈哈New data!1");
+					}, function(e) {
+						alert(e.message);
+					});
+				})
+			})
+		})
+ 
+
+	}
+
+	//
+	//var entry = this.entry;
+	//console.log(entry);
+	//// Truncate file
+	//entry.createWriter( function ( writer ) {
+	//	// Truncate file data length to 100
+	//	writer.write( "哈哈哈哈哈" );
+	//}, function ( e ) {
+	//	alert( e.message );
+	//} );
+
+	//	<ul>
+	//					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+	//						<a href="html/bill/billlist.html">
+	//							<span class="mui-icon mui-icon-list"><!--<span class="mui-badge">5</span>--></span>
+	//							<div class="mui-media-body">查看1</div>
+	//						</a>
+	//					</li>
+	//					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+	//						<a href="html/bill/refush.html">
+	//							<span class="mui-icon mui-icon-list"><!--<span class="mui-badge">5</span>--></span>
+	//							<div class="mui-media-body">查看2</div>
+	//						</a>
+	//					</li>
+	//					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+	//						<a href="html/test/pullrefresh_main.html">
+	//							<span class="mui-icon mui-icon-list"><!--<span class="mui-badge">5</span>--></span>
+	//							<div class="mui-media-body">双viewdemo</div>
+	//						</a>
+	//					</li>
+	//				</ul>
+	//
 </script>

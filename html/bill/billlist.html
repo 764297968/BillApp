@@ -10,34 +10,10 @@
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<script type="text/javascript" src="../../js/angular.min.js"></script>
 		<script type="text/javascript" src="../../js/cfg.js"></script>
-		<script type="text/javascript" src="../../js/mui.min.js"></script>
+
 	</head>
 
 	<body ng-app="myApp" ng-controller="myCtrl">
-		<!--下拉刷新容器-->
-		<!--<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
-			 
-				<ul class="mui-table-view mui-table-view-chevron">
-					<li class="mui-table-view-cell">
-						<a href="" class="mui-navigate-right">Item 1</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a href="" class="mui-navigate-right">Item 2</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a href="" class="mui-navigate-right">Item 3</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a href="" class="mui-navigate-right">Item 4</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a href="" class="mui-navigate-right">Item 5</a>
-					</li>
-				</ul>
-			</div>
-		</div>-->
-
 		<!--下拉刷新容器-->
 		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
@@ -49,77 +25,53 @@
 						</div>
 						<div class="mui-table mui-slider-handle">
 							<div class="mui-table-cell mui-col-xs-8">
-								<p class="mui-h6 mui-ellipsis">金额: {{item.val.money}}</p>
-								<p class="mui-h6 mui-ellipsis">人物: {{item.val.people==null?"暂无":item.val.people}}</p>
-								<p class="mui-h6 mui-ellipsis">描述: {{item.val.des}}</p>
+								<p class="mui-h6 mui-ellipsis">金额: {{item.money}}</p>
+								<p class="mui-h6 mui-ellipsis">人物: {{item.people==null?"暂无":item.people}}</p>
+								<p class="mui-h6 mui-ellipsis">描述: {{item.des}}</p>
 							</div>
 							<div class="mui-table-cell mui-col-xs-3 mui-text-right">
-								<span class="mui-h5">{{item.val.bdate}}</span>
+								<span class="mui-h5">{{item.date}}</span>
 							</div>
 						</div>
 					</li>
 
-					 
 				</ul>
 			</div>
 
 		</div>
-	
 
 	</body>
 
 </html>
-
-<script>
-</script>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
 <script>
 	var data = [];
 
 	var app = angular.module('myApp', []);
 	app.controller('myCtrl', function($scope, $filter) {
-		$scope.list = [];
-		$scope.indexList=[];
-		$scope.index=1;
-		$scope.size=5;
-		document.addEventListener("plusready", plusReady, false);
 
-		function plusReady() {
-			var itemLength = plus.storage.getLength();
+		$scope.indexList = [];
+		$scope.index = 1;
+		$scope.size = 5;
+		//document.addEventListener("plusready", plusReady, false);
 
-			for(var i = 0; i < itemLength; i++) {
-				var key = plus.storage.key(i);
-
-				if(key.indexOf(cfg.keyname) > -1) {
-					$scope.indexList.push(key);
-					if($scope.indexList.length<5)
-					{
-						var value = plus.storage.getItem(key);
-						$scope.list.push({ key: key, val: JSON.parse(value) })
-					}
-					
-				}
-
-			};
-			//$scope.list.push({key:"bill1507799615670",val:{des:11}})
-
-			$scope.$apply();
-		}
 		mui.init({
 			pullRefresh: {
 				container: '#pullrefresh',
 				down: {
 					callback: getData
 				},
-				up: {
-					contentrefresh: '正在加载...',
-					callback: pullupRefresh
-				}
+				//				up: {
+				//					contentrefresh: '正在加载...',
+				//					callback: pullupRefresh
+				//				}
 			}
-		});
+		}); 
 		/**
 		 * 下拉刷新具体业务实现
 		 */
 		function pulldownRefresh() {
+
 			setTimeout(function() {
 				var table = document.body.querySelector('.mui-table-view');
 				var cells = document.body.querySelectorAll('.mui-table-view-cell');
@@ -152,17 +104,15 @@
 		}
 
 		function getData() {
- console.log($scope.indexList.length);
-			for(var i =($scope.index-1); i < ($scope.index)*$scope.size; i++) {
-				var key = plus.storage.key(i);
-
-				if(key.indexOf(cfg.keyname) > -1) {
-					var value = plus.storage.getItem(key);
-					$scope.list.push({ key: key, val: JSON.parse(value) })
-				}
-
-			};
+			console.log(1);
+			db.showbill(function(res) {
+				$scope.list = res;
+				$scope.$apply()
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+			})
 		}
 
+		getData();
 	})
+	 
 </script>

@@ -46,8 +46,7 @@ db.addbill=function(m,des,t)
 db.showbill=function(func)
 {
 	
-	db.query("select * from bill",function(res){
-		
+	db.query("select * from bill order by createtime desc",function(res){
 		var data=[];
 		for (var i=0;i<res.rows.length;i++) {
 			data.push(res.rows.item(i));

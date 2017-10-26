@@ -16,36 +16,48 @@
 	<script>
 		var app = angular.module('myApp', []);
 		app.controller('myCtrl', function($scope, $filter) {
-			db.showbill(function(res) {
-				console.log(JSON.stringify(res));
-			});
-			$scope.list = [];
+
 			$scope.dataread = function() {
 				//$scope.list.push({ key: 1, val: 222 })
 				var itemLength = plus.storage.getLength();
-
+				$scope.list = [];
 				for(var i = 0; i < itemLength; i++) {
 					var key = plus.storage.key(i);
 					var value = plus.storage.getItem(key);
 					$scope.list.push({ key: key, val: value })
 				};
-
+				$scope.ishidden = "list";
 			}
 
 			$scope.clearAllItem = function() {
-				plus.storage.clear();
+				var btnArray = ['取消', '确定'];
+				mui.confirm('确定清除出缓存吗？', '提示', btnArray, function(e) {
+					if(e.index == 1) {
+						plus.storage.clear();
+					} else {
+						mui.toast("已取消")
+					}
+				})
 
 			}
-			$scope.getdata=function()
-			{
-				db.showbill(function(res){
-					$scope.sqllist=res;
-					$scope.$apply()
+			$scope.getdata = function() {
+				db.showbill(function(res) {
+					$scope.sqllist = res;
+					$scope.ishidden = "sqllist";
+					$scope.$apply();
+
 				})
 			}
-			$scope.delbill=function()
-			{
-				db.delbill();
+			$scope.delbill = function() {
+
+				var btnArray = ['取消', '确定'];
+				mui.confirm('确定清除出数据吗？', '提示', btnArray, function(e) {
+					if(e.index == 1) {
+						db.delbill();
+					} else {
+						mui.toast("已取消")
+					}
+				})
 			}
 		})
 	</script>
@@ -59,7 +71,7 @@
 		<div class="mui-content">
 			<div class="mui-content-padded">
 				<button ng-click="dataread()">查看</button>
-				
+
 				<button ng-click="clearAllItem()">清除</button>
 				<button ng-click="getdata()">查看数据</button>
 				<button ng-click="delbill()">清除</button>
@@ -68,11 +80,11 @@
 			<div class="mui-card">
 				<div class="mui-card-content">
 
-					<div class="mui-card-content-inner" ng-repeat="item in list">
+					<div class="mui-card-content-inner {{ishidden=='list'?'':'mui-hidden'}}" ng-repeat="item in list">
 						<p>{{item.key}}</p>
 						{{item.val}}
 					</div>
-					<div class="mui-card-content-inner" ng-repeat="item in sqllist">
+					<div class="mui-card-content-inner {{ishidden=='sqllist'?'':'mui-hidden'}}" ng-repeat="item in sqllist">
 						<p>{{item.id}}</p>
 						{{item.des}}|{{item.money}}|{{item.date}}|{{item.state}}
 					</div>

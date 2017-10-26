@@ -1,9 +1,9 @@
 {
 	"@platforms": ["android", "iPhone", "iPad"],
-	"id": "H5440E4B9",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "BillApp",/*应用名称，程序桌面图标名称*/
+	"id": "H5440E4B91",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"name": "NewBillApp",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.0",/*应用版本名称*/
+		"name": "1.2.0",/*应用版本名称*/
 		"code": "83"
 	},
 	"description": "",/*应用描述信息*/
@@ -221,7 +221,8 @@
 					"css/common.css",
 					"fonts/mui.ttf",
 					"index.html",
-					"js/cfg.js"
+					"js/cfg.js",
+					"home.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -238,7 +239,9 @@
 					"js/cfg.js",
 					"home.html"
 				],
-				"refer": [],
+				"refer": [
+					"html/bill/billindex.html"
+				],
 				"priority": 0
 			},
 			"home.html": {
@@ -246,7 +249,14 @@
 					"js/mui.min.js",
 					"fonts/mui.ttf",
 					"css/mui.min.css",
-					"html/bill/speechadd.html"
+					"html/bill/speechadd.html",
+					"html/log/log.html",
+					"html/bill/billindex.html",
+					"html/bill/billlist.html",
+					"html/bill/refush.html",
+					"html/test/pullrefresh_main.html",
+					"js/update.js",
+					"js/cfg.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -257,7 +267,8 @@
 					"css/mui.min.css",
 					"js/cfg.js",
 					"js/angular.min.js",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"home.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -269,7 +280,43 @@
 					"js/cfg.js",
 					"js/angular.min.js",
 					"html/bill/billlist.html",
-					"index.html"
+					"index.html",
+					"home.html",
+					"fonts/mui.ttf",
+					"index1.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/test/pullrefresh_main.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"html/test/pullrefresh_sub.html",
+					"home.html",
+					"index1.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/test/pullrefresh_sub.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"index1.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/update.js",
+					"html/test/pullrefresh_main.html",
+					"html/bill/billindex.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -277,7 +324,6 @@
 		},
 		"idle": {
 			"resources": [
-				"index1.html",
 				"js/mui.js",
 				"css/mui.css",
 				"html/bill/speechadd1.html"

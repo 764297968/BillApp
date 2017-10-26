@@ -9,7 +9,7 @@
 		<script type="text/javascript" src="../../js/angular.min.js"></script>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript" src="../../js/jquery.min.js"></script>
-		<script type="text/javascript" src="../../js/cfg.js" ></script>
+		<script type="text/javascript" src="../../js/cfg.js"></script>
 		<script type="text/javascript">
 			mui.init();
 			var app = angular.module('myApp', []);
@@ -20,7 +20,7 @@
 				$scope.bill.bdate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 
 				$("#date").val($scope.bill.bdate);
-			
+
 				$scope.addBill = function() {
 					var bill = $scope.bill;
 					if(bill.des == null) {
@@ -34,31 +34,27 @@
 					}
 					//plus.storage.setItem("11","test")
 					console.log($scope.bill);
-					bill.state=1;
-					db.addbill(bill.money,bill.des,bill.bdate);
+					bill.state = 1;
+					db.addbill(bill.money, bill.des, bill.bdate);
 					plus.storage.setItem(cfg.keyname + date.getTime(), JSON.stringify($scope.bill));
 					mui.alert("录入成功", "提示", "确定", function() {
-							mui.openWindow({
-								url: "/index.html",
-								id: "index.html"
-							});
-					},
+							plus.webview.create('../bill/billindex.html', true).show(300);
+						},
 						"div");
-
 				}
 			});
 		</script>
 	</head>
 
 	<body>
-<header  class="mui-bar mui-bar-nav">
-	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-	
-	<h1 class="mui-title">新建</h1>
-</header>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+			<h1 class="mui-title">新建</h1>
+		</header>
 		<div class="mui-content" ng-app="myApp" ng-controller="myCtrl">
 			<div class="mui-content-padded">
-				
+
 				<form class="mui-input-group">
 					<div class="mui-input-row">
 						<label>说明</label>
@@ -80,7 +76,7 @@
 						<button type="reset" class="mui-btn mui-btn-danger">取消</button>
 					</div>
 				</form>
-				 
+
 			</div>
 		</div>
 
