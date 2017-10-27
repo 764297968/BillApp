@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<title></title>
 		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/icons-extra.css" />
 		<script src="js/cfg.js"></script>
 	</head>
 
@@ -33,10 +34,11 @@
 						<div class="mui-media-body">日志</div>
 					</a>
 				</li>
-				<li onclick="openDir()" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-
-					<span class="mui-icon mui-icon-file"></span>
-					<div class="mui-media-body">目录</div>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="html/menu.html">
+						<span class="mui-icon-extra mui-icon-extra-dictionary"></span>
+						<div class="mui-media-body">目录</div>
+					</a>
 
 				</li>
 			</ul>
@@ -152,87 +154,35 @@
 	document.addEventListener("plusready", onPlusReady, false);
 	// 扩展API加载完毕，现在可以正常调用扩展API
 	function onPlusReady() {
+
+		backData(cfg.downloadpath());
+
+	}
+
+	function backData(andrpath) {
+
 		var d = new Date();
 		var datetime = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 
-		plus.io.resolveLocalFileSystemURL("_downloads/", function(entry) {
-			//console.log(entry.fullPath);
-			///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/downloads/
-			entry.getFile(datetime + ".txt", { create: true }, function(fileEntry) {
+		plus.io.resolveLocalFileSystemURL(andrpath, function(entry1) {
+
+			entry1.getFile(datetime + ".txt", { create: true }, function(fileEntry) {
+
 				fileEntry.createWriter(function(writer) {
 					writer.onwrite = function(e) {
 						plus.console.log("Write data success!");
 					};
-					writer.seek(0);
+
 					db.showbill(function(res) {
+						writer.seek(0);
 						writer.write(JSON.stringify(res));
 					})
-
-					//					writer.seek(writer.length);
-					//					writer.write("哈哈哈哈哈New data!1");
 				}, function(e) {
 					alert(e.message);
 				});
-			})
-		}, function(err) {
-			console.log(JSON.stringify(err));
-		});
 
-	}
-
-	function openDir() {
-		plus.io.resolveLocalFileSystemURL("_downloads/", function(entry) {
-			var andrpath = entry.fullPath.substr(0, entry.fullPath.indexOf('Android'))+"Download/";
-
-			plus.io.resolveLocalFileSystemURL(andrpath, function(entry1) {
-				console.log(entry1.fullPath);
-				entry1.getFile(111 + ".txt", { create: true }, function(fileEntry) {
-					fileEntry.createWriter(function(writer) {
-						writer.onwrite = function(e) {
-							plus.console.log("Write data success!");
-						};
-						 writer.seek(0);
-						writer.write("哈哈哈哈哈New data!1");
-					}, function(e) {
-						alert(e.message);
-					});
-				})
 			})
 		})
- 
 
 	}
-
-	//
-	//var entry = this.entry;
-	//console.log(entry);
-	//// Truncate file
-	//entry.createWriter( function ( writer ) {
-	//	// Truncate file data length to 100
-	//	writer.write( "哈哈哈哈哈" );
-	//}, function ( e ) {
-	//	alert( e.message );
-	//} );
-
-	//	<ul>
-	//					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-	//						<a href="html/bill/billlist.html">
-	//							<span class="mui-icon mui-icon-list"><!--<span class="mui-badge">5</span>--></span>
-	//							<div class="mui-media-body">查看1</div>
-	//						</a>
-	//					</li>
-	//					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-	//						<a href="html/bill/refush.html">
-	//							<span class="mui-icon mui-icon-list"><!--<span class="mui-badge">5</span>--></span>
-	//							<div class="mui-media-body">查看2</div>
-	//						</a>
-	//					</li>
-	//					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-	//						<a href="html/test/pullrefresh_main.html">
-	//							<span class="mui-icon mui-icon-list"><!--<span class="mui-badge">5</span>--></span>
-	//							<div class="mui-media-body">双viewdemo</div>
-	//						</a>
-	//					</li>
-	//				</ul>
-	//
 </script>

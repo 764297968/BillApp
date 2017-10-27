@@ -1,6 +1,6 @@
 {
 	"@platforms": ["android", "iPhone", "iPad"],
-	"id": "H5440E4B91",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"id": "H5440E4B92",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "NewBillApp",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.2.0",/*应用版本名称*/
@@ -256,9 +256,12 @@
 					"html/bill/refush.html",
 					"html/test/pullrefresh_main.html",
 					"js/update.js",
-					"js/cfg.js"
+					"js/cfg.js",
+					"css/icons-extra.css"
 				],
-				"refer": [],
+				"refer": [
+					"html/menu.html"
+				],
 				"priority": 0
 			},
 			"html/bill/billlist.html": {
@@ -317,6 +320,20 @@
 					"js/update.js",
 					"html/test/pullrefresh_main.html",
 					"html/bill/billindex.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/menu.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/cfg.js",
+					"css/common.css",
+					"img/fdisk.png",
+					"img/ffile.png",
+					"fonts/mui.ttf",
+					"js/angular.min.js"
 				],
 				"refer": [],
 				"priority": 0

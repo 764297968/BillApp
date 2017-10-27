@@ -38,7 +38,7 @@
 					db.addbill(bill.money, bill.des, bill.bdate);
 					plus.storage.setItem(cfg.keyname + date.getTime(), JSON.stringify($scope.bill));
 					mui.alert("录入成功", "提示", "确定", function() {
-							plus.webview.create('../bill/billindex.html', true).show(300);
+							plus.webview.create('../../home.html', true).show(300);
 						},
 						"div");
 				}
