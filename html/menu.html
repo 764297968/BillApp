@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+
+	</head>
+	<style type="text/css">
+		.fitem {
+			width: 96%;
+			overflow: hidden;
+			padding: 10px 2%;
+			border-bottom: 1px solid #c6c6c6;
+			text-align: left;
+		}
+		
+		.fitem:active {
+			background: #f4f4f4;
+		}
+		
+		.ficon {
+			height: 40px;
+			float: left;
+			margin-right: 8px;
+		}
+		
+		.fup {
+			line-height: 40px;
+		}
+		
+		.fname {
+			font-weight: bolder;
+			height: 22px;
+			font-size: 16px;
+		}
+		
+		.finf {
+			height: 18px;
+			font-size: 12px;
+		}
+	</style>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+			<h1 class="mui-title">文件目录</h1>
+		</header>
+
+		<div id="dcontent" class="mui-content" ng-app="myApp" ng-controller="myCtrl">
+
+			<div class="fitem" ng-repeat="t in Data" ng-click="openDir(t.name)">
+				<img class="ficon" src="../img/ffile.png" />
+				<div class="mui-table-cell mui-col-xs-10">
+					<span class="fname">{{t.name}}</span><br/>
+					<span class="finf">{{t.size}}KB &nbsp;{{t.modificationTime}}</span>
+				</div>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/angular.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/cfg.js"></script>
+		<script type="text/javascript">
+			var app = angular.module('myApp', []);
+			app.controller('myCtrl', function($scope, $filter) {
+				if(window.plus) {
+					plusReady();
+				} else {
+					document.addEventListener("plusready", function() {
+						plusReady();
+					}, false);
+				}
+
+				function plusReady() {
+					plus.io.resolveLocalFileSystemURL(cfg.downloadpath(), function(entry1) {
+						$scope.Data = [];
+						var dirReader = entry1.createReader();
+						dirReader.readEntries(function(entries) {
+							for(var i = 0; i < entries.length; i++) { 
+								entries[i].getMetadata(function(metadata) { 
+									metadata.name = entries[i - 1].name;
+									metadata.modificationTime = cfg.dateToStr(metadata.modificationTime)
+								 
+									$scope.Data.push(metadata);
+									$scope.$apply();
+									cfg.setstorge("menu",JSON.stringify($scope.Data)
+								})
+							}
+						})
+					})
+				}
+				$scope.openDir = function(name) {
+
+					console.log(name)
+					console.log(cfg.downloadpath() + name)
+					plus.runtime.openFile(cfg.downloadpath() + name, {}, function(e) {
+						plus.nativeUI.alert("无法打开此文件：" + e.emssage);
+					});
+				}
+			})
+		</script>
+	</body>
+
+</html>
