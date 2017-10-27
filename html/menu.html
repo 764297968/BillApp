@@ -43,14 +43,15 @@
 		}
 	</style>
 
-	<body>
+	<body ng-app="myApp" ng-controller="myCtrl">
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 
 			<h1 class="mui-title">文件目录</h1>
+			<a ng-click="plusReady()"><span class="mui-icon mui-icon-loop  mui-pull-right"></span></a>
 		</header>
 
-		<div id="dcontent" class="mui-content" ng-app="myApp" ng-controller="myCtrl">
+		<div id="dcontent" class="mui-content" >
 
 			<div class="fitem" ng-repeat="t in Data" ng-click="openDir(t.name)">
 				<img class="ficon" src="../img/ffile.png" />
@@ -68,14 +69,14 @@
 			var app = angular.module('myApp', []);
 			app.controller('myCtrl', function($scope, $filter) {
 				if(window.plus) {
-					plusReady();
+					$scope.plusReady();
 				} else {
 					document.addEventListener("plusready", function() {
-						plusReady();
+						$scope.plusReady();
 					}, false);
 				}
 
-				function plusReady() {
+				$scope.plusReady=function() {
 					plus.io.resolveLocalFileSystemURL(cfg.downloadpath(), function(entry1) {
 						$scope.Data = [];
 						var dirReader = entry1.createReader();
@@ -87,12 +88,13 @@
 								 
 									$scope.Data.push(metadata);
 									$scope.$apply();
-									cfg.setstorge("menu",JSON.stringify($scope.Data)
+									cfg.setstorge("menu",JSON.stringify($scope.Data))
 								})
 							}
 						})
 					})
 				}
+				 
 				$scope.openDir = function(name) {
 
 					console.log(name)

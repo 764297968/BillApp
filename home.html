@@ -41,14 +41,28 @@
 					</a>
 
 				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="html/lock.html">
+						<span class="mui-icon mui-icon-gear"></span>
+						<div class="mui-media-body">设置</div>
+					</a>
+
+				</li>
 			</ul>
 		</div>
 	</body>
 
 </html>
 <script src="js/mui.min.js"></script>
-
+<script type="text/javascript" src="js/angular.min.js" ></script>
 <script>
+	var app = angular.module("myApp", []).component("myCtrl", function($scope) {
+		document.addEventListener("plusready", onPlusReady, false);
+		// 扩展API加载完毕，现在可以正常调用扩展API
+		function onPlusReady() {
+			backData(cfg.downloadpath());
+		}
+	})
 	var _toast = false;
 	mui.back = function() {
 		if(!_toast || !_toast.isVisible()) {
@@ -150,14 +164,6 @@
 			});
 		}
 	});
-
-	document.addEventListener("plusready", onPlusReady, false);
-	// 扩展API加载完毕，现在可以正常调用扩展API
-	function onPlusReady() {
-
-		backData(cfg.downloadpath());
-
-	}
 
 	function backData(andrpath) {
 

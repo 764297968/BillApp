@@ -257,10 +257,12 @@
 					"html/test/pullrefresh_main.html",
 					"js/update.js",
 					"js/cfg.js",
-					"css/icons-extra.css"
+					"css/icons-extra.css",
+					"js/angular.min.js"
 				],
 				"refer": [
-					"html/menu.html"
+					"html/menu.html",
+					"html/lock.html"
 				],
 				"priority": 0
 			},
@@ -336,6 +338,19 @@
 					"js/angular.min.js"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"html/lock.html": {
+				"resources": [
+					"js/mui.locker.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/cfg.js"
+				],
+				"refer": [
+					"home.html"
+				],
 				"priority": 0
 			}
 		},
